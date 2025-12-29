@@ -40,6 +40,83 @@ body {
   animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px); 
+  }
+  25% { 
+    transform: translateY(-20px) translateX(10px); 
+  }
+  50% { 
+    transform: translateY(-10px) translateX(-10px); 
+  }
+  75% { 
+    transform: translateY(-15px) translateX(5px); 
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.6), 0 0 60px rgba(168, 85, 247, 0.4);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .glass-panel {
   background: rgba(30, 41, 59, 0.7);
   backdrop-filter: blur(12px);
@@ -191,3 +268,85 @@ body {
     opacity: 0.6;
   }
 }
+
+/* Floating particles animation */
+.floating-particle {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-particle:nth-child(2n) {
+  animation-duration: 8s;
+  animation-delay: -2s;
+}
+
+.floating-particle:nth-child(3n) {
+  animation-duration: 7s;
+  animation-delay: -4s;
+}
+
+.floating-particle:nth-child(4n) {
+  animation-duration: 9s;
+  animation-delay: -1s;
+}
+
+/* Twinkling stars animation */
+.twinkle-star {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.twinkle-star:nth-child(2n) {
+  animation-duration: 4s;
+  animation-delay: -1s;
+}
+
+.twinkle-star:nth-child(3n) {
+  animation-duration: 5s;
+  animation-delay: -2s;
+}
+
+.twinkle-star:nth-child(4n) {
+  animation-duration: 3.5s;
+  animation-delay: -0.5s;
+}
+
+/* Glass card glow effect */
+.glass-card-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Pulse animation for interactive elements */
+.pulse-animation {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Slide in animation */
+.slide-in {
+  animation: slideIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Shimmer effect for text */
+.shimmer-text {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.4) 0%, 
+    rgba(255,255,255,0.8) 50%, 
+    rgba(255,255,255,0.4) 100%);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Sparkle animation for special elements */
+.sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.sparkle:nth-child(2n) {
+  animation-delay: 0.5s;
+}
+
+.sparkle:nth-child(3n) {
+  animation-delay: 1s;
+}
+

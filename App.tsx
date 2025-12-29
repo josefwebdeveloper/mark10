@@ -314,38 +314,42 @@ const App: React.FC = () => {
       {/* Premium Glass Hero Section - Improved Mobile */}
       <header className="relative w-full max-w-5xl mx-auto px-3 sm:px-6 pt-8 sm:pt-12 pb-12 sm:pb-20 flex flex-col items-center z-10">
         
-        {/* Glass Card Container */}
-        <div className="relative w-full p-6 sm:p-8 md:p-14 rounded-3xl sm:rounded-[2.5rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden group hover:border-white/20 transition-all duration-700">
+        {/* Glass Card Container with Glow */}
+        <div className="relative w-full p-6 sm:p-8 md:p-14 rounded-3xl sm:rounded-[2.5rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden group hover:border-white/20 transition-all duration-700 glass-card-glow">
           
-          {/* Subtle Ambient Glows inside card */}
-          <div className="absolute -top-20 -left-20 w-40 sm:w-64 h-40 sm:h-64 bg-indigo-500/20 rounded-full blur-[60px] sm:blur-[80px] group-hover:bg-indigo-500/30 transition-all duration-1000"></div>
-          <div className="absolute -bottom-20 -right-20 w-40 sm:w-64 h-40 sm:h-64 bg-amber-500/10 rounded-full blur-[60px] sm:blur-[80px] group-hover:bg-amber-500/20 transition-all duration-1000"></div>
+          {/* Animated Ambient Glows inside card */}
+          <div className="absolute -top-20 -left-20 w-40 sm:w-64 h-40 sm:h-64 bg-indigo-500/20 rounded-full blur-[60px] sm:blur-[80px] group-hover:bg-indigo-500/30 transition-all duration-1000 floating-particle"></div>
+          <div className="absolute -bottom-20 -right-20 w-40 sm:w-64 h-40 sm:h-64 bg-amber-500/10 rounded-full blur-[60px] sm:blur-[80px] group-hover:bg-amber-500/20 transition-all duration-1000 floating-particle"></div>
+          
+          {/* Additional floating sparkles */}
+          <div className="absolute top-10 right-20 w-20 h-20 bg-purple-500/10 rounded-full blur-[40px] floating-particle"></div>
+          <div className="absolute bottom-10 left-20 w-16 h-16 bg-pink-500/10 rounded-full blur-[30px] floating-particle"></div>
           
           {/* Content */}
           <div className="relative z-10 flex flex-col items-center text-center">
             
-            {/* Premium Badge */}
-            <div className="inline-flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-200/90 text-[9px] sm:text-[10px] md:text-xs font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-6 sm:mb-10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] hover:bg-white/10 transition-colors cursor-default">
-              <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300" />
+            {/* Premium Badge with Pulse */}
+            <div className="inline-flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-200/90 text-[9px] sm:text-[10px] md:text-xs font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-6 sm:mb-10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] hover:bg-white/10 transition-colors cursor-default pulse-animation">
+              <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300 sparkle" />
               <span>{APP_SUBTITLE}</span>
             </div>
 
             {/* Main Heading - Responsive Text Sizes */}
             <h1 className="font-playfair text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-6 sm:mb-8 leading-[1.1] text-white drop-shadow-xl animate-fade-up">
               Happy Birthday, <br/>
-              <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 bg-[length:200%_auto] animate-[shine_3s_linear_infinite]">Mark!</span>
+              <span className="inline-block italic text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 bg-[length:200%_auto] animate-[shine_3s_linear_infinite] hover:scale-110 transition-transform duration-300">Mark!</span>
             </h1>
 
             {/* Divider */}
             <div className="w-16 sm:w-24 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mb-5 sm:mb-8"></div>
 
-            {/* Subtitle - Responsive Text */}
-            <p className="font-sans text-base sm:text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-light tracking-wide animate-fade-up px-4" style={{ animationDelay: '0.2s' }}>
+            {/* Subtitle - Responsive Text with Slide-in */}
+            <p className="font-sans text-base sm:text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-light tracking-wide slide-in px-4" style={{ animationDelay: '0.2s' }}>
               You are 10 years old. Be happy. We love you.
             </p>
 
-            {/* CSS Heart with Effects */}
-            <div className="relative mt-6 sm:mt-10 animate-fade-up" style={{ animationDelay: '0.4s' }}>
+            {/* CSS Heart with Effects and Slide-in */}
+            <div className="relative mt-6 sm:mt-10 slide-in" style={{ animationDelay: '0.4s' }}>
               <div className="heart-container">
                 <div className="heart"></div>
                 <div className="heart-shadow"></div>

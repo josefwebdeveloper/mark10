@@ -46,19 +46,19 @@ const createVideo = (index: number, publicId: string) => ({
 
 // List of Image Public IDs (Unique list)
 const PHOTO_IDS = [
-  'IMG_3022_sbnd1a', 'IMG_3025_gr0pfh', 'IMG_3028_upispm', 'IMG_3031_kinuxm', 'IMG_3032_vhn9le',
+  'IMG_3022_sbnd1a', 'IMG_3025_gr0pfh', 'IMG_3028_upispm', 'IMG_3031_kinuxm',
   'IMG_3037_vhn9le', 'IMG_3040_cll20w', 'IMG_3047_gngvm6', 'IMG_3050_zbcypw', 'IMG_3053_ec0yam',
   'IMG_3056_qt95yk', 'IMG_3057_g0pmi8', 'IMG_3062_hpoaha', 'IMG_3067_yiyfsz', 'IMG_3069_r1l8f5',
   'IMG_3071_ypjt3x', 'IMG_3072_lmcmyo', 'IMG_3073_t3959b', 'IMG_3083_skildn', 'IMG_3085_abgvui',
   'IMG_3086_k0z1ma', 'IMG_3088_bvmksf', 'IMG_3089_nr4lje', 'IMG_3092_sgpxlb', 'IMG_3093_jpljmo',
   'IMG_3098_tdbvmw', 'IMG_3101_ob5gcu', 'IMG_3102_ei4qbr', 'IMG_3118_a0o7fo', 'IMG_3129_chuj0b',
   'IMG_3136_qfwko4', 'IMG_3146_p5cpyf', 'IMG_3166_pgqhpc', 'IMG_3167_dkvlym', 'IMG_3180_mveozs',
-  'IMG_3182_i5glkk', 'IMG_3185_ffr0xz', 'IMG_3197_xcvu1z', 'IMG_3206_fpkiiy', 'IMG_3212_my0yay',
+  'IMG_3182_i5glkk', 'IMG_3185_ffr0xz', 'IMG_3197_xcvu1z', 'IMG_3206_fpkiiy',
   'IMG_3218_ylk9nd', 'IMG_3250_o0efa1', 'IMG_3251_hcmvuj', 'IMG_3256_ivt7sw', 'IMG_3264_1_gtnaib',
   'IMG_3279_p0jcsf', 'IMG_3282_fnmjmz', 'IMG_3307_lmubcf', 'IMG_3322_r0fzqu', 'IMG_3324_pua7e4',
   'IMG_3335_dyxsfp', 'IMG_3353_oduoc6', 'IMG_3357_p1fbq9', 'IMG_3363_pkvdha', 'IMG_3366_iiazml',
   'IMG_3371_yemfpx', 'IMG_3372_ue71jk', 'IMG_3376_p4djt9', 'IMG_3378_uftgyi', 'IMG_3386_s9i6uz',
-  'IMG_3387_nceo0i', 'IMG_3390_ylgjex', 'IMG_3393_x10ibp', 'IMG_3398_okosjo', 'IMG_3409_h53rb6',
+  'IMG_3387_nceo0i', 'IMG_3390_ylgjex', 'IMG_3393_x10ibp', 'IMG_3398_okosjo',
   'IMG_3414_efjbrl'
 ];
 
