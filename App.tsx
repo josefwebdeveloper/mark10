@@ -209,50 +209,55 @@ const App: React.FC = () => {
         <MouseFire />
       </div>
 
-      {/* Navbar */}
-      <nav className="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center z-50 relative">
+      {/* Navbar - Improved Mobile Responsiveness */}
+      <nav className="w-full max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 flex justify-between items-center z-50 relative">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
-            <Camera className="w-4 h-4 text-white" />
+          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <Camera className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight font-playfair">WonderLens</span>
+          <span className="text-lg sm:text-xl font-bold tracking-tight font-playfair">WonderLens</span>
         </div>
         
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
+          {/* Play Button */}
           <button 
             onClick={handleStartSlideshow}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-500 transition-all border border-indigo-400 text-sm font-bold shadow-[0_0_15px_rgba(79,70,229,0.4)] hover:shadow-[0_0_20px_rgba(79,70,229,0.6)] active:scale-95 group"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-indigo-600 hover:bg-indigo-500 transition-all border border-indigo-400 text-xs sm:text-sm font-bold shadow-[0_0_15px_rgba(79,70,229,0.4)] hover:shadow-[0_0_20px_rgba(79,70,229,0.6)] active:scale-95 group"
+            aria-label="Start slideshow"
           >
-            <Play className="w-4 h-4 text-white fill-white group-hover:scale-110 transition-transform" />
+            <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white fill-white group-hover:scale-110 transition-transform" />
             <span className="hidden sm:inline text-white">Play</span>
           </button>
 
-          <div className="h-6 w-px bg-slate-700 mx-1"></div>
+          <div className="h-5 sm:h-6 w-px bg-slate-700 mx-0.5 sm:mx-1"></div>
 
-          {/* Music Control Group */}
+          {/* Music Control Group - Compact on Mobile */}
           <div className="relative" ref={playlistRef}>
             <div className="flex flex-col bg-slate-800 rounded-full border border-slate-700 overflow-visible relative z-50">
               <div className="flex items-center p-0.5 z-10 relative">
                 <button 
                   onClick={toggleMusic}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-slate-700 transition-colors text-sm font-medium ${isMusicEnabled ? 'text-green-400' : 'text-slate-400'}`}
+                  className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full hover:bg-slate-700 transition-colors text-xs sm:text-sm font-medium ${isMusicEnabled ? 'text-green-400' : 'text-slate-400'}`}
                   title={isMusicEnabled ? "Turn Off Music" : "Turn On Music"}
+                  aria-label={isMusicEnabled ? "Turn Off Music" : "Turn On Music"}
                 >
-                  {isMusicEnabled ? <Music className="w-4 h-4 animate-pulse" /> : <VolumeX className="w-4 h-4" />}
+                  {isMusicEnabled ? <Music className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-pulse" /> : <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                 </button>
                 
-                <div className="h-4 w-px bg-slate-700 mx-1"></div>
+                <div className="h-3 sm:h-4 w-px bg-slate-700 mx-0.5 sm:mx-1"></div>
 
-                <div className="px-2 text-xs text-slate-300 max-w-[80px] sm:max-w-[100px] truncate select-none">
+                <div className="px-1.5 sm:px-2 text-[10px] sm:text-xs text-slate-300 max-w-[60px] sm:max-w-[100px] truncate select-none">
                   {MUSIC_TRACKS[currentTrackIndex].title}
                 </div>
 
                 <button 
                   onClick={() => setIsPlaylistOpen(!isPlaylistOpen)}
-                  className={`p-1.5 rounded-full transition-colors ${isPlaylistOpen ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                  className={`p-1 sm:p-1.5 rounded-full transition-colors ${isPlaylistOpen ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700'}`}
                   title="Select Music"
+                  aria-label="Select Music Track"
+                  aria-expanded={isPlaylistOpen}
                 >
-                  <ListMusic className="w-4 h-4" />
+                  <ListMusic className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </div>
               
@@ -267,11 +272,11 @@ const App: React.FC = () => {
               )}
             </div>
 
-            {/* Playlist Dropdown */}
+            {/* Playlist Dropdown - Better Mobile Positioning */}
             {isPlaylistOpen && (
-              <div className="absolute top-full right-0 mt-2 w-64 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200 origin-top-right">
+              <div className="absolute top-full right-0 mt-2 w-56 sm:w-64 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200 origin-top-right max-h-[60vh] overflow-y-auto">
                 <div className="py-2">
-                   <div className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Select Track</div>
+                   <div className="px-3 sm:px-4 py-2 text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Select Track</div>
                    {MUSIC_TRACKS.map((track, i) => (
                      <button
                        key={i}
@@ -279,13 +284,13 @@ const App: React.FC = () => {
                          e.stopPropagation(); 
                          selectTrack(i);
                        }}
-                       className={`w-full text-left px-4 py-3 text-sm flex items-center justify-between transition-colors ${
+                       className={`w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm flex items-center justify-between transition-colors ${
                          i === currentTrackIndex 
                            ? 'bg-indigo-500/10 text-indigo-300 border-l-2 border-indigo-500' 
                            : 'text-slate-300 hover:bg-white/5 border-l-2 border-transparent'
                        }`}
                      >
-                       <span className="truncate">{track.title}</span>
+                       <span className="truncate pr-2">{track.title}</span>
                        {i === currentTrackIndex && <Music className="w-3 h-3 text-indigo-400 flex-shrink-0" />}
                      </button>
                    ))}
@@ -294,46 +299,48 @@ const App: React.FC = () => {
             )}
           </div>
 
+          {/* Fullscreen Button - Hidden on very small screens */}
           <button 
             onClick={toggleAppFullscreen}
-            className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors border border-slate-700"
+            className="hidden xs:flex p-1.5 sm:p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors border border-slate-700"
             title="Toggle Fullscreen"
+            aria-label="Toggle Fullscreen"
           >
-             {isAppFullscreen ? <Minimize className="w-4 h-4 text-white" /> : <Maximize className="w-4 h-4 text-white" />}
+             {isAppFullscreen ? <Minimize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" /> : <Maximize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />}
           </button>
         </div>
       </nav>
 
-      {/* Premium Glass Hero Section */}
-      <header className="relative w-full max-w-5xl mx-auto px-6 pt-12 pb-20 flex flex-col items-center z-10">
+      {/* Premium Glass Hero Section - Improved Mobile */}
+      <header className="relative w-full max-w-5xl mx-auto px-3 sm:px-6 pt-8 sm:pt-12 pb-12 sm:pb-20 flex flex-col items-center z-10">
         
         {/* Glass Card Container */}
-        <div className="relative w-full p-8 md:p-14 rounded-[2.5rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden group hover:border-white/20 transition-all duration-700">
+        <div className="relative w-full p-6 sm:p-8 md:p-14 rounded-3xl sm:rounded-[2.5rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden group hover:border-white/20 transition-all duration-700">
           
           {/* Subtle Ambient Glows inside card */}
-          <div className="absolute -top-20 -left-20 w-64 h-64 bg-indigo-500/20 rounded-full blur-[80px] group-hover:bg-indigo-500/30 transition-all duration-1000"></div>
-          <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] group-hover:bg-amber-500/20 transition-all duration-1000"></div>
+          <div className="absolute -top-20 -left-20 w-40 sm:w-64 h-40 sm:h-64 bg-indigo-500/20 rounded-full blur-[60px] sm:blur-[80px] group-hover:bg-indigo-500/30 transition-all duration-1000"></div>
+          <div className="absolute -bottom-20 -right-20 w-40 sm:w-64 h-40 sm:h-64 bg-amber-500/10 rounded-full blur-[60px] sm:blur-[80px] group-hover:bg-amber-500/20 transition-all duration-1000"></div>
           
           {/* Content */}
           <div className="relative z-10 flex flex-col items-center text-center">
             
             {/* Premium Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-200/90 text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] hover:bg-white/10 transition-colors cursor-default">
-              <Sparkles className="w-3 h-3 text-amber-300" />
+            <div className="inline-flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-200/90 text-[9px] sm:text-[10px] md:text-xs font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-6 sm:mb-10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] hover:bg-white/10 transition-colors cursor-default">
+              <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300" />
               <span>{APP_SUBTITLE}</span>
             </div>
 
-            {/* Main Heading */}
-            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-8 leading-[1.1] text-white drop-shadow-xl animate-fade-up">
+            {/* Main Heading - Responsive Text Sizes */}
+            <h1 className="font-playfair text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-6 sm:mb-8 leading-[1.1] text-white drop-shadow-xl animate-fade-up">
               Congratulations, <br/>
               <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 bg-[length:200%_auto] animate-[shine_3s_linear_infinite]">Mark!</span>
             </h1>
 
             {/* Divider */}
-            <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mb-8"></div>
+            <div className="w-16 sm:w-24 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mb-5 sm:mb-8"></div>
 
-            {/* Subtitle */}
-            <p className="font-sans text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-light tracking-wide animate-fade-up" style={{ animationDelay: '0.2s' }}>
+            {/* Subtitle - Responsive Text */}
+            <p className="font-sans text-base sm:text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-light tracking-wide animate-fade-up px-4" style={{ animationDelay: '0.2s' }}>
               You are 10 years old. Be happy. I love you.
             </p>
 

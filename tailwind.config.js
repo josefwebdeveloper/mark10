@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '475px',
+      },
       fontFamily: {
         outfit: ['Outfit', 'sans-serif'],
         playfair: ['Playfair Display', 'serif'],
@@ -16,6 +19,15 @@ export default {
       colors: {
         'bg-primary': '#0f172a',
         'bg-secondary': '#1e293b',
+      },
+      keyframes: {
+        shine: {
+          '0%': { backgroundPosition: '200% center' },
+          '100%': { backgroundPosition: '-200% center' },
+        },
+      },
+      animation: {
+        shine: 'shine 3s linear infinite',
       },
     },
   },

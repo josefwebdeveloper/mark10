@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="150" cy="100" r="120" fill="#6366f1" opacity="0.1"/>
+  <circle cx="1050" cy="530" r="150" fill="#a855f7" opacity="0.1"/>
+  
+  <!-- Camera Icon -->
+  <g transform="translate(120, 200)">
+    <rect width="180" height="180" rx="40" fill="url(#iconGrad)"/>
+    <circle cx="90" cy="90" r="35" fill="none" stroke="white" stroke-width="8"/>
+    <circle cx="90" cy="75" r="12" fill="white"/>
+    <path d="M 90 105 L 90 140 M 75 140 L 105 140" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="350" y="280" font-family="'Playfair Display', serif" font-size="90" font-weight="600" fill="white">WonderLens</text>
+  <text x="350" y="350" font-family="'Outfit', sans-serif" font-size="36" fill="#94a3b8">Magical Memory Gallery</text>
+  <text x="350" y="410" font-family="'Outfit', sans-serif" font-size="28" fill="#64748b">✨ Capture • Celebrate • Remember</text>
+</svg>
