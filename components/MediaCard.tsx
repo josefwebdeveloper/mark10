@@ -17,15 +17,20 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, index, onClick }) =>
       style={{ animationDelay: `${0.1 + (index * 0.05)}s`, opacity: 0, animationFillMode: 'forwards' }}
     >
       <div 
-        className="group relative cursor-pointer overflow-hidden rounded-2xl bg-slate-800 shadow-lg hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-500 hover:-translate-y-2"
+        className="group relative cursor-pointer p-4 rounded-[2rem] bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)] hover:border-white/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden"
         onClick={() => onClick(item)}
       >
-        <div className="relative aspect-[3/4] w-full overflow-hidden">
+        {/* Ambient Glows (Matches Hero Section) */}
+        <div className="absolute -top-20 -left-20 w-48 h-48 bg-indigo-500/10 rounded-full blur-[60px] group-hover:bg-indigo-500/20 transition-all duration-700 pointer-events-none"></div>
+        <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-amber-500/5 rounded-full blur-[60px] group-hover:bg-amber-500/15 transition-all duration-700 pointer-events-none"></div>
+
+        {/* Inner Content Container */}
+        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[1.5rem] z-10 bg-slate-900/50">
            
            {/* Loading Skeleton */}
            {!isLoaded && (
-             <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
-               <div className="w-8 h-8 border-2 border-slate-600 border-t-indigo-500 rounded-full animate-spin"></div>
+             <div className="absolute inset-0 flex items-center justify-center">
+               <div className="w-8 h-8 border-2 border-white/10 border-t-indigo-400 rounded-full animate-spin"></div>
              </div>
            )}
 

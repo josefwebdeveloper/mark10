@@ -1,14 +1,13 @@
 import { MediaItem, MediaType } from './types';
 
-export const APP_TITLE = "LEO'S ARCHIVE";
+export const APP_TITLE = "MARK'S ARCHIVE";
 export const APP_SUBTITLE = "MARK 10 YEARS 2025";
 
 // Relaxing, premium piano & ambient background music playlist
+// Using reliable direct MP3 links
 export const MUSIC_TRACKS = [
-  { title: "Winds of Spring", url: "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" },
-  { title: "Gentle Memories", url: "https://cdn.pixabay.com/audio/2022/03/10/audio_c8c8a73467.mp3" },
-  { title: "Better Days", url: "https://cdn.pixabay.com/audio/2022/10/14/audio_985559c5d1.mp3" },
-  { title: "Dreamy Clouds", url: "https://cdn.pixabay.com/audio/2024/02/08/audio_03d6935109.mp3" }
+  { title: "Abla (Memories)", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=winds-of-spring-10671.mp3" }, 
+  { title: "Soft Reflection", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=soft-piano-100-bpm-121529.mp3" }
 ];
 
 /**

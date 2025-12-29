@@ -43,7 +43,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
   const mediaContainerRef = useRef<HTMLDivElement>(null);
   const playlistRef = useRef<HTMLDivElement>(null);
   
-  // Set to 3000ms to match the implied tempo of ~76 items in ~3:48 mins
+  // 3 seconds per slide
   const autoplayDuration = 3000; 
   const progressIntervalRef = useRef<number | null>(null);
 
@@ -69,23 +69,10 @@ export const Lightbox: React.FC<LightboxProps> = ({
         setProgress(newProgress);
 
         if (elapsed >= autoplayDuration) {
-          // Autoplay Next Logic: Skip videos to keep momentum, or play them?
-          // If we want to strictly follow the tempo, we should probably switch even on videos,
-          // BUT typically slideshows pause on videos.
-          // Let's stick to the previous logic of skipping/playing videos carefully.
-          // Actually, for "Use it" (sync), we should just go to the next item.
-          // But if it's a video, auto-advancing after 3s might be annoying if video is long.
-          // Let's keep logic: if next is video, select it.
           const currentIndex = items.findIndex(i => i.id === item.id);
           const nextIndex = (currentIndex + 1) % items.length;
           setSelectedItem(items[nextIndex]);
           
-          // Note: If the new item is a video, the App component will auto-pause background music
-          // and the video element will autoPlay.
-          // We might need to pause the slideshow timer if it's a video?
-          // If we want "3s per item" regardless, we keep running.
-          // But usually you want to watch the video.
-          // Let's PAUSE slideshow if we land on a video.
           if (items[nextIndex].type === MediaType.VIDEO) {
               setIsPlaying(false);
           }
@@ -215,7 +202,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
                 src={item.url} 
                 controls 
                 autoPlay 
-                // When video plays, slideshow should probably stop if not already handled
+                // When video plays, slideshow logic in useEffect handles the rest
                 onPlay={() => setIsPlaying(false)}
                 className="max-w-full max-h-[90vh] rounded-lg shadow-2xl outline-none z-20 bg-black animate-in fade-in duration-500"
               />
@@ -262,7 +249,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
 
                {/* Music Controls Container */}
                <div className="relative" ref={playlistRef}>
-                  <div className="flex flex-col bg-black/40 hover:bg-black/60 rounded-full backdrop-blur-md border border-white/10 overflow-hidden transition-all relative">
+                  <div className="flex flex-col bg-black/40 hover:bg-black/60 rounded-full backdrop-blur-md border border-white/10 overflow-visible transition-all relative">
                       <div className="flex items-center relative z-10">
                         <button
                           onClick={(e) => { e.stopPropagation(); onToggleMusic(); }}
@@ -305,12 +292,16 @@ export const Lightbox: React.FC<LightboxProps> = ({
 
                    {/* Playlist Popup */}
                    {isPlaylistOpen && (
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-56 bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl animate-in fade-in slide-in-from-bottom-2 duration-200">
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-56 bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl animate-in fade-in slide-in-from-bottom-2 duration-200 z-[100]">
                         <div className="py-2 max-h-48 overflow-y-auto">
                             {MUSIC_TRACKS.map((track, i) => (
                               <button
                                 key={i}
-                                onClick={(e) => { e.stopPropagation(); onSelectTrack(i); setIsPlaylistOpen(false); }}
+                                onClick={(e) => { 
+                                    e.stopPropagation(); 
+                                    onSelectTrack(i); 
+                                    setIsPlaylistOpen(false); 
+                                }}
                                 className={`w-full text-left px-4 py-2.5 text-sm flex items-center justify-between transition-colors ${
                                   i === currentTrackIndex 
                                     ? 'bg-white/10 text-indigo-300' 

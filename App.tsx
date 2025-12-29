@@ -3,15 +3,16 @@ import { INITIAL_MEDIA, APP_SUBTITLE, MUSIC_TRACKS } from './constants';
 import { Gallery } from './components/Gallery';
 import { Lightbox } from './components/Lightbox';
 import { MagicParticles } from './components/MagicParticles';
+import { MouseFire } from './components/MouseFire';
 import { MediaItem, MediaType } from './types';
-import { Camera, Music, VolumeX, Maximize, Minimize, Play, Calendar, ExternalLink, SkipForward, ListMusic } from 'lucide-react';
+import { Camera, Music, VolumeX, Maximize, Minimize, Play, Calendar, ExternalLink, SkipForward, ListMusic, Sparkles } from 'lucide-react';
 
 const App: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<MediaItem | null>(null);
   
   // User's intent to have music on
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
-  // Actual playing state (derived/managed)
+  // Actual playing state (for UI feedback)
   const [isPlaying, setIsPlaying] = useState(false);
   
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -22,82 +23,88 @@ const App: React.FC = () => {
   
   const playlistRef = useRef<HTMLDivElement>(null);
   
-  // Use a stable instance of the Audio object
-  const [audio] = useState(() => {
-    const a = new Audio(MUSIC_TRACKS[0].url);
-    a.loop = true;
-    a.volume = 0.5;
-    return a;
-  });
+  // Initialize Audio Object Immediately
+  const audioRef = useRef<HTMLAudioElement>(new Audio(MUSIC_TRACKS[0].url));
 
-  // Cleanup on unmount
+  // Initialize Audio Listeners
   useEffect(() => {
-    return () => {
-      audio.pause();
-      audio.src = "";
-    };
-  }, [audio]);
+    const audio = audioRef.current;
+    
+    // Configure initial state
+    audio.loop = true;
+    audio.volume = 0.5;
+    audio.crossOrigin = "anonymous"; 
 
-  // Handle Audio Events (Progress & End)
-  useEffect(() => {
     const updateProgress = () => {
       if (audio.duration) {
         setAudioProgress((audio.currentTime / audio.duration) * 100);
       }
     };
     
-    // When song ends, play next automatically if looping playlist behavior is desired, 
-    // but here we have a.loop=true for single track looping or manual next.
-    // Let's make it auto-advance for a "playlist" feel.
     const handleEnded = () => {
-       if (audio.loop) return; // If loop is true, it won't fire 'ended' usually.
-       // If we want playlist behavior, we should set loop=false and handle next here.
-       // For now, let's keep simple looping track or user manual switch.
+       // Loop takes care of it
     };
+
+    const handleError = (e: Event) => {
+      console.error("Audio Playback Error:", e);
+      setIsPlaying(false);
+    };
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
 
     audio.addEventListener('timeupdate', updateProgress);
     audio.addEventListener('ended', handleEnded);
+    audio.addEventListener('error', handleError);
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
+
     return () => {
+      audio.pause();
       audio.removeEventListener('timeupdate', updateProgress);
       audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener('error', handleError);
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
     };
-  }, [audio]);
+  }, []);
 
-  // Handle Track Source Changes
+  // Handle Play/Pause Logic when state changes
   useEffect(() => {
-    const wasPlaying = isPlaying;
-    audio.src = MUSIC_TRACKS[currentTrackIndex].url;
-    audio.currentTime = 0;
-    if (wasPlaying) {
-      audio.play().catch(console.error);
-    }
-  }, [currentTrackIndex, audio]);
-
-  // Master Playback Logic: Combines User Intent + Context (Video vs Photo)
-  useEffect(() => {
-    // If user wants music OFF, it's OFF.
-    // If user wants music ON:
-    //   - If viewing a VIDEO: Pause (Smart Ducking)
-    //   - Otherwise: Play
+    const audio = audioRef.current;
+    
+    // Logic: Music must be enabled globally AND (no item selected OR selected item is NOT a video)
     const shouldPlay = isMusicEnabled && (!selectedItem || selectedItem.type !== MediaType.VIDEO);
 
     if (shouldPlay) {
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => setIsPlaying(true))
-          .catch((error) => {
-            console.error("Auto-play prevented:", error);
-            setIsPlaying(false);
-            // If autoplay is blocked, we might want to update intent, but better to leave it 
-            // so it resumes when user interacts.
+      if (audio.paused) {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log("Play failed (likely needs user interaction first):", error);
+            // We don't turn off isMusicEnabled here, as the user might click 'play' later
           });
+        }
       }
     } else {
-      audio.pause();
-      setIsPlaying(false);
+      if (!audio.paused) {
+        audio.pause();
+      }
     }
-  }, [isMusicEnabled, selectedItem, audio]);
+  }, [isMusicEnabled, selectedItem]);
+
+  // Handle Track Source Changes separately to avoid race conditions
+  useEffect(() => {
+     const audio = audioRef.current;
+     const targetUrl = MUSIC_TRACKS[currentTrackIndex].url;
+     if (audio.src !== targetUrl) {
+        // If we are just changing the track but music is off, just set src
+        const wasPlaying = !audio.paused;
+        audio.src = targetUrl;
+        audio.load();
+        if (wasPlaying) audio.play().catch(e => console.error(e));
+     }
+  }, [currentTrackIndex]);
 
   // Click outside playlist to close
   useEffect(() => {
@@ -110,18 +117,41 @@ const App: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Direct User Interaction Handlers - Critical for Browser Autoplay Policy
   const toggleMusic = () => {
-    setIsMusicEnabled(!isMusicEnabled);
+    const newState = !isMusicEnabled;
+    setIsMusicEnabled(newState);
+    
+    // Direct interaction
+    if (newState) {
+       audioRef.current.play().catch(e => console.error("Toggle play failed", e));
+    } else {
+       audioRef.current.pause();
+    }
   };
 
   const nextTrack = () => {
-    setCurrentTrackIndex((prev) => (prev + 1) % MUSIC_TRACKS.length);
+    const nextIndex = (currentTrackIndex + 1) % MUSIC_TRACKS.length;
+    setCurrentTrackIndex(nextIndex);
+    // Note: The Effect will handle source change, but we want to ensure it plays if enabled
+    if (isMusicEnabled) {
+       // We can't synchronously play the *next* url here easily because the state update hasn't propagated to the Effect yet.
+       // However, since the user clicked, the 'play' permission is granted.
+       // The Effect will pick it up.
+    }
   };
 
   const selectTrack = (index: number) => {
+    // Immediate feedback
     setCurrentTrackIndex(index);
     setIsMusicEnabled(true);
     setIsPlaylistOpen(false);
+
+    // Direct audio manipulation to ensure response to click
+    const audio = audioRef.current;
+    audio.src = MUSIC_TRACKS[index].url;
+    audio.load();
+    audio.play().catch(e => console.error("Select track play failed", e));
   };
 
   const toggleAppFullscreen = async () => {
@@ -141,12 +171,14 @@ const App: React.FC = () => {
   };
 
   const handleStartSlideshow = () => {
+    // User explicitly clicked "Play"
     if (INITIAL_MEDIA.length > 0) {
-      if (!isMusicEnabled) setIsMusicEnabled(true);
-      
-      // Open Lightbox
+      setIsMusicEnabled(true); 
       setStartWithAutoplay(true);
       setSelectedItem(INITIAL_MEDIA[0]);
+      
+      // Force play
+      audioRef.current.play().catch(e => console.error("Slideshow start play failed", e));
     }
   };
 
@@ -171,18 +203,19 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen relative flex flex-col items-center pb-20">
-      {/* Global Background Particles */}
+      {/* Global Background Particles & Fire Effect */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <MagicParticles />
+        <MouseFire />
       </div>
 
       {/* Navbar */}
-      <nav className="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center z-10 relative">
+      <nav className="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center z-50 relative">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
             <Camera className="w-4 h-4 text-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight">WonderLens</span>
+          <span className="text-xl font-bold tracking-tight font-playfair">WonderLens</span>
         </div>
         
         <div className="flex items-center gap-3">
@@ -198,7 +231,7 @@ const App: React.FC = () => {
 
           {/* Music Control Group */}
           <div className="relative" ref={playlistRef}>
-            <div className="flex flex-col bg-slate-800 rounded-full border border-slate-700 overflow-hidden relative">
+            <div className="flex flex-col bg-slate-800 rounded-full border border-slate-700 overflow-visible relative z-50">
               <div className="flex items-center p-0.5 z-10 relative">
                 <button 
                   onClick={toggleMusic}
@@ -225,7 +258,7 @@ const App: React.FC = () => {
               
               {/* Progress Bar */}
               {isMusicEnabled && (
-                <div className="absolute bottom-0 left-0 h-0.5 bg-slate-700 w-full">
+                <div className="absolute bottom-0 left-0 h-0.5 bg-slate-700 w-full overflow-hidden rounded-b-full">
                   <div 
                     className="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-300 ease-linear"
                     style={{ width: `${audioProgress}%` }}
@@ -236,21 +269,24 @@ const App: React.FC = () => {
 
             {/* Playlist Dropdown */}
             {isPlaylistOpen && (
-              <div className="absolute top-full right-0 mt-2 w-64 bg-slate-800/95 backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
+              <div className="absolute top-full right-0 mt-2 w-64 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200 origin-top-right">
                 <div className="py-2">
                    <div className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Select Track</div>
                    {MUSIC_TRACKS.map((track, i) => (
                      <button
                        key={i}
-                       onClick={() => selectTrack(i)}
+                       onClick={(e) => {
+                         e.stopPropagation(); 
+                         selectTrack(i);
+                       }}
                        className={`w-full text-left px-4 py-3 text-sm flex items-center justify-between transition-colors ${
                          i === currentTrackIndex 
                            ? 'bg-indigo-500/10 text-indigo-300 border-l-2 border-indigo-500' 
                            : 'text-slate-300 hover:bg-white/5 border-l-2 border-transparent'
                        }`}
                      >
-                       <span>{track.title}</span>
-                       {i === currentTrackIndex && <Music className="w-3 h-3 text-indigo-400" />}
+                       <span className="truncate">{track.title}</span>
+                       {i === currentTrackIndex && <Music className="w-3 h-3 text-indigo-400 flex-shrink-0" />}
                      </button>
                    ))}
                 </div>
@@ -268,21 +304,41 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <header className="relative w-full max-w-4xl mx-auto px-6 pt-10 pb-12 text-center z-10">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold tracking-wider mb-6 animate-fade-up hover:bg-indigo-500/20 transition-colors cursor-default">
-          <Calendar className="w-3 h-3 text-indigo-400" />
-          <span>{APP_SUBTITLE}</span>
+      {/* Premium Glass Hero Section */}
+      <header className="relative w-full max-w-5xl mx-auto px-6 pt-12 pb-20 flex flex-col items-center z-10">
+        
+        {/* Glass Card Container */}
+        <div className="relative w-full p-8 md:p-14 rounded-[2.5rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden group hover:border-white/20 transition-all duration-700">
+          
+          {/* Subtle Ambient Glows inside card */}
+          <div className="absolute -top-20 -left-20 w-64 h-64 bg-indigo-500/20 rounded-full blur-[80px] group-hover:bg-indigo-500/30 transition-all duration-1000"></div>
+          <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] group-hover:bg-amber-500/20 transition-all duration-1000"></div>
+          
+          {/* Content */}
+          <div className="relative z-10 flex flex-col items-center text-center">
+            
+            {/* Premium Badge */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-200/90 text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] hover:bg-white/10 transition-colors cursor-default">
+              <Sparkles className="w-3 h-3 text-amber-300" />
+              <span>{APP_SUBTITLE}</span>
+            </div>
+
+            {/* Main Heading */}
+            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-8 leading-[1.1] text-white drop-shadow-xl animate-fade-up">
+              Congratulations, <br/>
+              <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 bg-[length:200%_auto] animate-[shine_3s_linear_infinite]">Mark!</span>
+            </h1>
+
+            {/* Divider */}
+            <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mb-8"></div>
+
+            {/* Subtitle */}
+            <p className="font-sans text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-light tracking-wide animate-fade-up" style={{ animationDelay: '0.2s' }}>
+              You are 10 years old. Be happy. I love you.
+            </p>
+
+          </div>
         </div>
-
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 leading-tight animate-fade-up" style={{ animationDelay: '0.1s' }}>
-          Capturing the <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Magic</span> of Childhood
-        </h1>
-
-        <p className="text-base text-slate-400 max-w-xl mx-auto leading-relaxed animate-fade-up" style={{ animationDelay: '0.2s' }}>
-          A collection of precious moments, frozen in time and brought to life with magical stories.
-        </p>
       </header>
 
       {/* Main Gallery */}
@@ -310,7 +366,7 @@ const App: React.FC = () => {
           items={INITIAL_MEDIA}
           setSelectedItem={setSelectedItem}
           initialIsPlaying={startWithAutoplay}
-          isMusicPlaying={isMusicEnabled} // Pass intent
+          isMusicPlaying={isMusicEnabled} 
           onToggleMusic={toggleMusic}
           onNextTrack={nextTrack}
           onSelectTrack={selectTrack}
