@@ -332,7 +332,7 @@ const App: React.FC = () => {
 
             {/* Main Heading - Responsive Text Sizes */}
             <h1 className="font-playfair text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-6 sm:mb-8 leading-[1.1] text-white drop-shadow-xl animate-fade-up">
-              Congratulations, <br/>
+              Happy Birthday, <br/>
               <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 bg-[length:200%_auto] animate-[shine_3s_linear_infinite]">Mark!</span>
             </h1>
 
@@ -341,8 +341,16 @@ const App: React.FC = () => {
 
             {/* Subtitle - Responsive Text */}
             <p className="font-sans text-base sm:text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-light tracking-wide animate-fade-up px-4" style={{ animationDelay: '0.2s' }}>
-              You are 10 years old. Be happy. I love you.
+              You are 10 years old. Be happy. We love you.
             </p>
+
+            {/* CSS Heart with Effects */}
+            <div className="relative mt-6 sm:mt-10 animate-fade-up" style={{ animationDelay: '0.4s' }}>
+              <div className="heart-container">
+                <div className="heart"></div>
+                <div className="heart-shadow"></div>
+              </div>
+            </div>
 
           </div>
         </div>
