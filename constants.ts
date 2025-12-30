@@ -37,8 +37,8 @@ const createPhoto = (index: number, publicId: string) => ({
 const createVideo = (index: number, publicId: string) => ({
   id: `v${index}`,
   type: MediaType.VIDEO,
-  url: cldUrl(publicId, 'video'),
-  thumbnail: cldUrl(publicId, 'video').replace('.mp4', '.jpg'),
+  url: `${cldUrl(publicId, 'video')}.mp4`,
+  thumbnail: `${cldUrl(publicId, 'video')}.jpg`,
   title: `VIDEO MEMORY #${index + 1}`,
   date: 'OCT 2023',
   description: 'Action and laughter preserved forever.'
