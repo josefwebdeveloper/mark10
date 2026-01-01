@@ -58,7 +58,7 @@ const PHOTO_IDS = [
   'IMG_3279_p0jcsf', 'IMG_3282_fnmjmz', 'IMG_3307_lmubcf', 'IMG_3322_r0fzqu', 'IMG_3324_pua7e4',
   'IMG_3335_dyxsfp', 'IMG_3353_oduoc6', 'IMG_3357_p1fbq9', 'IMG_3363_pkvdha', 'IMG_3366_iiazml',
   'IMG_3371_yemfpx', 'IMG_3372_ue71jk', 'IMG_3376_p4djt9', 'IMG_3378_uftgyi', 'IMG_3386_s9i6uz',
-  'IMG_3387_nceo0i', 'IMG_3390_ylgjex', 'IMG_3393_x10ibp', 'IMG_3398_okosjo',
+  'IMG_3387_nceo0i', 'IMG_3390_ylgjex', 'IMG_3393_x10ibp',
   'IMG_3414_efjbrl'
 ];
 
