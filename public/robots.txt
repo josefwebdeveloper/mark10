@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wonderlens.app/sitemap.xml
+# Mark Shainsky Birthday Gallery
+# Марк Шаинский - מרק שאינסקי
+Sitemap: https://mark10-inky.vercel.app/sitemap.xml
