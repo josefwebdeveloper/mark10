@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Mark Shainsky 10th Birthday | Марк Шаинский 10 лет | מרק שאינסקי יום הולדת</title>
+    <meta name="description" content="Happy 10th Birthday Mark Shainsky! С Днём Рождения Марк Шаинский! יום הולדת שמח מרק שאינסקי! Magical birthday celebration gallery.">
+    <meta name="keywords" content="Mark Shainsky, Марк Шаинский, מרק שאינסקי, birthday, день рождения, יום הולדת, 10 years, 10 лет">
+    <meta name="author" content="Porqa Studio">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Mark Shainsky 10th Birthday | Марк Шаинский">
+    <meta property="og:description" content="Happy 10th Birthday Mark Shainsky! С Днём Рождения Марк Шаинский!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mark10-inky.vercel.app/mark-shainsky.html">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://mark10-inky.vercel.app/mark-shainsky.html">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(139, 92, 246, 0.3);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: rgba(236, 72, 153, 0.25);
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -2s;
+        }
+        
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: rgba(251, 191, 36, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+        
+        /* Stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fcd34d;
+            margin-bottom: 30px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(252, 211, 77, 0.2); }
+            50% { transform: scale(1.02); box-shadow: 0 0 30px rgba(252, 211, 77, 0.4); }
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        
+        h1 .name {
+            display: block;
+            font-style: italic;
+            background: linear-gradient(90deg, #fcd34d, #f59e0b, #fcd34d);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+        }
+        
+        @keyframes shine {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+        
+        /* Heart */
+        .heart-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .heart {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(244, 63, 94, 0.6));
+        }
+        
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 38px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #f43f5e 50%, #e11d48 100%);
+            border-radius: 38px 38px 0 0;
+        }
+        
+        .heart::before {
+            left: 38px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+        
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+        
+        @keyframes heartbeat {
+            0%, 28%, 56%, 100% { transform: scale(1); }
+            14%, 42% { transform: scale(1.15); }
+        }
+        
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 50px 0;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fcd34d;
+        }
+        
+        .card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+        
+        /* Language Sections */
+        .languages {
+            margin: 60px 0;
+        }
+        
+        .lang-section {
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+        
+        .lang-section.en { border-color: #3b82f6; }
+        .lang-section.ru { border-color: #ef4444; }
+        .lang-section.he { border-color: #22c55e; direction: rtl; text-align: right; }
+        
+        .lang-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .lang-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        /* Gallery Link */
+        .gallery-link {
+            display: block;
+            text-align: center;
+            margin: 50px 0;
+        }
+        
+        .gallery-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+        
+        .gallery-link a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+        }
+        
+        footer p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: #a78bfa;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Info List */
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .info-list strong {
+            color: #fcd34d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    
+    <!-- Stars -->
+    <div class="stars">
+        <div class="star" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+        <div class="star" style="top: 20%; left: 80%; animation-delay: 0.5s;"></div>
+        <div class="star" style="top: 40%; left: 10%; animation-delay: 1s;"></div>
+        <div class="star" style="top: 60%; left: 90%; animation-delay: 1.5s;"></div>
+        <div class="star" style="top: 80%; left: 30%; animation-delay: 2s;"></div>
+        <div class="star" style="top: 15%; left: 50%; animation-delay: 2.5s;"></div>
+        <div class="star" style="top: 70%; left: 70%; animation-delay: 3s;"></div>
+        <div class="star" style="top: 90%; left: 15%; animation-delay: 3.5s;"></div>
+    </div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="badge">
+                ✨ Mark 10 Years 2025 ✨
+            </div>
+            
+            <h1>
+                Happy Birthday,<br>
+                <span class="name">Mark Shainsky!</span>
+            </h1>
+            
+            <p class="subtitle">You are 10 years old. Be happy. We love you.</p>
+            
+            <div class="heart-container">
+                <div class="heart"></div>
+            </div>
+        </header>
+        
+        <!-- Info Cards -->
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">🎂</div>
+                <h3>10th Birthday</h3>
+                <p>Mark Shainsky celebrates a special milestone - turning 10 years old in 2025! A decade of joy, laughter, and beautiful memories.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📸</div>
+                <h3>Memory Gallery</h3>
+                <p>59 precious photos and 5 videos capturing Mark's wonderful moments. Each image tells a story of happiness and love.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">💝</div>
+                <h3>With Love</h3>
+                <p>Created with love to celebrate Mark's special day. A digital treasure to cherish forever.</p>
+            </div>
+        </div>
+        
+        <!-- Language Sections -->
+        <div class="languages">
+            <!-- English -->
+            <div class="lang-section en">
+                <h2>🇬🇧 About Mark Shainsky</h2>
+                <p>Mark Shainsky is celebrating his 10th birthday in 2025! This magical photo and video gallery contains precious memories from Mark's life - moments of joy, laughter, family time, and adventures. Happy Birthday, Mark! We love you!</p>
+                <ul class="info-list">
+                    <li><span>Full Name:</span> <strong>Mark Shainsky</strong></li>
+                    <li><span>Age:</span> <strong>10 years old</strong></li>
+                    <li><span>Celebration:</span> <strong>Birthday 2025</strong></li>
+                    <li><span>Gallery:</span> <strong>59 photos + 5 videos</strong></li>
+                </ul>
+            </div>
+            
+            <!-- Russian -->
+            <div class="lang-section ru">
+                <h2>🇷🇺 О Марке Шаинском</h2>
+                <p>Марк Шаинский празднует свой 10-й день рождения в 2025 году! Эта волшебная фото и видео галерея содержит драгоценные воспоминания из жизни Марка - моменты радости, смеха, семейного времени и приключений. С Днём Рождения, Марк! Мы тебя любим!</p>
+                <ul class="info-list">
+                    <li><span>Полное имя:</span> <strong>Марк Шаинский</strong></li>
+                    <li><span>Возраст:</span> <strong>10 лет</strong></li>
+                    <li><span>Празднование:</span> <strong>День Рождения 2025</strong></li>
+                    <li><span>Галерея:</span> <strong>59 фото + 5 видео</strong></li>
+                </ul>
+            </div>
+            
+            <!-- Hebrew -->
+            <div class="lang-section he">
+                <h2>🇮🇱 אודות מרק שאינסקי</h2>
+                <p>מרק שאינסקי חוגג את יום הולדתו ה-10 ב-2025! גלריית התמונות והסרטונים הקסומה הזו מכילה זיכרונות יקרים מחייו של מרק - רגעי שמחה, צחוק, זמן משפחתי והרפתקאות. יום הולדת שמח, מרק! אנחנו אוהבים אותך!</p>
+                <ul class="info-list">
+                    <li><span>שם מלא:</span> <strong>מרק שאינסקי</strong></li>
+                    <li><span>גיל:</span> <strong>בן 10</strong></li>
+                    <li><span>חגיגה:</span> <strong>יום הולדת 2025</strong></li>
+                    <li><span>גלריה:</span> <strong>59 תמונות + 5 סרטונים</strong></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Gallery Link -->
+        <div class="gallery-link">
+            <a href="https://mark10-inky.vercel.app/">
+                🎬 View Full Interactive Gallery
+            </a>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>Birthday Gallery for Mark Shainsky | Марк Шаинский | מרק שאינסקי</p>
+            <p style="margin-top: 10px;">Created with ❤️ by <a href="https://porqa.com" target="_blank">Porqa Studio</a></p>
+        </footer>
+    </div>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mark Shainsky",
+        "alternateName": ["Марк Шаинский", "מרק שאינסקי"],
+        "description": "Mark Shainsky celebrating his 10th birthday in 2025. Марк Шаинский празднует свой 10-й день рождения.",
+        "birthDate": "2015",
+        "url": "https://mark10-inky.vercel.app/mark-shainsky.html"
+    }
+    </script>
+</body>
+</html>
