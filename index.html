@@ -140,7 +140,58 @@
 </script>
 </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- SEO Fallback Content for Search Engines / Контент для поисковых систем -->
+      <div id="seo-content" style="max-width: 800px; margin: 0 auto; padding: 40px 20px; font-family: system-ui, sans-serif; color: #333;">
+        <h1 style="font-size: 2.5em; text-align: center; margin-bottom: 20px;">
+          Happy Birthday Mark Shainsky! 🎂
+        </h1>
+        <h2 style="font-size: 1.5em; text-align: center; color: #666; margin-bottom: 30px;">
+          С Днём Рождения Марк Шаинский! | יום הולדת שמח מרק שאינסקי!
+        </h2>
+        
+        <article style="line-height: 1.8; margin-bottom: 30px;">
+          <p><strong>Mark Shainsky</strong> celebrates his <strong>10th birthday</strong> in 2025! This magical photo and video gallery contains precious memories and moments from Mark's life.</p>
+          
+          <p><strong>Марк Шаинский</strong> празднует свой <strong>10-й день рождения</strong> в 2025 году! Эта волшебная фотогалерея содержит драгоценные воспоминания и моменты из жизни Марка.</p>
+          
+          <p><strong>מרק שאינסקי</strong> חוגג את <strong>יום הולדתו ה-10</strong> ב-2025! גלריית התמונות והסרטונים הקסומה הזו מכילה זיכרונות יקרים מחייו של מרק.</p>
+        </article>
+        
+        <section>
+          <h3>About Mark Shainsky / О Марке Шаинском / אודות מרק שאינסקי</h3>
+          <ul style="line-height: 2;">
+            <li>Name: Mark Shainsky (Марк Шаинский / מרק שאינסקי)</li>
+            <li>Birthday: 2025 - 10 years old (10 лет / בן 10)</li>
+            <li>Gallery: 59 photos + 5 videos of memories</li>
+            <li>Message: "You are 10 years old. Be happy. We love you."</li>
+          </ul>
+        </section>
+        
+        <footer style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+          <p>Birthday Gallery for Mark Shainsky | Галерея ко дню рождения Марка Шаинского | גלריית יום הולדת למרק שאינסקי</p>
+          <p>Created with love by <a href="https://porqa.com">Porqa Studio</a></p>
+        </footer>
+      </div>
+    </div>
     <script type="module" src="/index.tsx"></script>
+    <script>
+      // Hide SEO content after React loads
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          var seoContent = document.getElementById('seo-content');
+          if (seoContent && document.querySelector('[class*="min-h-screen"]')) {
+            seoContent.style.display = 'none';
+          }
+        }, 100);
+      });
+    </script>
+    
+    <!-- Noscript fallback for users without JavaScript -->
+    <noscript>
+      <style>
+        #seo-content { display: block !important; }
+      </style>
+    </noscript>
   </body>
 </html>
